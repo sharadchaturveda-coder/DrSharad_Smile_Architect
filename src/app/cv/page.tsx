@@ -1,4 +1,4 @@
-import { GraduationCap, Award, Briefcase, BookOpen, CalendarDays } from 'lucide-react';
+import { GraduationCap, Award, BookOpen, CalendarDays } from 'lucide-react';
 import React from 'react';
 
 interface CVItem {
