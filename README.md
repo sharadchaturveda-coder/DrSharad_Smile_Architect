@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DrSharad Smile Architect - Portfolio Website
 
-## Getting Started
+This repository contains the source code for the DrSharad Smile Architect portfolio website, a modern web application built with Next.js, React, and Tailwind CSS.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project serves as the online presence for Dr. Sharad, showcasing services, expertise, and contact information. It is designed to be performant, accessible, and easily maintainable.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Key Technologies:**
+*   Next.js (App Router)
+*   React
+*   TypeScript
+*   Tailwind CSS
+*   shadcn/ui (implied for UI components)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For detailed information on various aspects of this project, please refer to the documents in the `/docs` directory.
 
-## Learn More
+### Table of Contents
 
-To learn more about Next.js, take a look at the following resources:
+1.  **[Project Setup](./docs/01-setup.md)**
+    *   Prerequisites, installation, running the development server, building for production, and linting.
+2.  **[Folder Structure](./docs/02-folder-structure.md)**
+    *   Overview of key directories and configuration files.
+3.  **[Component Architecture](./docs/03-component-architecture.md)**
+    *   How components are organized, key libraries, and usage patterns.
+4.  **[Environment Variables](./docs/04-environment-variables.md)**
+    *   Managing environment variables for different deployment stages.
+5.  **[Deployment](./docs/05-deployment.md)**
+    *   Guidance on deploying the application, with a recommendation for Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Quick Start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd DrSharad_Smile_Architect
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Please refer to the detailed documentation for guidelines on contributing, coding standards, and project structure before making any changes.
