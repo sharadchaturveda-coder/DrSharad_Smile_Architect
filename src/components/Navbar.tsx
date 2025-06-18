@@ -53,7 +53,7 @@ export default function Navbar() {
               size="icon"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="h-6 w-6" aria-hidden="true" />
               <span className="sr-only">Open menu</span>
             </Button>
           </div>
