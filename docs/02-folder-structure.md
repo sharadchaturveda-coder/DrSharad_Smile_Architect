@@ -25,17 +25,39 @@ DrSharad_Smile_Architect/
 │   │   ├── favicon.ico      # Application favicon.
 │   │   ├── globals.css      # Global CSS styles.
 │   │   ├── layout.tsx       # Root layout component for the application.
-│   │   └── page.tsx         # Main landing page component.
+│   │   └── page.tsx         # Main landing page - now a shell importing sections.
 │   ├── components/          # Reusable React components.
+│   │   ├── common/          # General-purpose common components.
+│   │   │   └── PlaceholderIcon.tsx
+│   │   ├── landing/         # Components specific to the landing page sections.
+│   │   │   ├── HeroSection.tsx
+│   │   │   ├── TrustLogosSection.tsx
+│   │   │   ├── AboutSection.tsx
+│   │   │   ├── ServicesSection.tsx
+│   │   │   ├── TestimonialsSection.tsx
+│   │   │   ├── PortfolioSection.tsx
+│   │   │   ├── CredentialsSection.tsx
+│   │   │   ├── ContactForm.tsx
+│   │   │   ├── ContactDetails.tsx
+│   │   │   ├── ContactSection.tsx
+│   │   │   └── FinalCTASection.tsx
+│   │   ├── Navbar/          # Components related to the Navbar.
+│   │   │   ├── DesktopNav.tsx
+│   │   │   ├── MobileNav.tsx
+│   │   │   └── constants.ts
 │   │   ├── Footer.tsx       # Footer component.
-│   │   ├── Navbar.tsx       # Navigation bar component.
-│   │   └── ui/              # Generic, often unstyled or base UI components (e.g., from shadcn/ui).
+│   │   ├── Navbar.tsx       # Main Navbar component (imports DesktopNav, MobileNav).
+│   │   └── ui/              # Generic UI components (e.g., shadcn/ui).
 │   │       ├── button.tsx
 │   │       ├── card.tsx
 │   │       ├── input.tsx
 │   │       └── textarea.tsx
+│   ├── hooks/               # Custom React hooks.
+│   │   └── useScrollEffect.ts
 │   └── lib/                 # Utility functions and libraries.
-│       └── utils.ts         # Helper functions (e.g., `cn` for classnames).
+│       ├── utils.ts         # Helper functions (e.g., `cn` for classnames).
+│       └── utils/           # More specific utility modules.
+│           └── scroll.ts    # Smooth scrolling utility.
 └── docs/                    # Project documentation files (this directory).
     ├── 01-setup.md          # Setup and installation instructions.
     └── (other .md files...) # Detailed documentation for various aspects.
@@ -45,14 +67,19 @@ DrSharad_Smile_Architect/
 
 *   **`/public`**: Contains static files like images, fonts, and other assets that are served directly by the web server. Files in this directory are accessible from the root of your application (e.g., `/next.svg`).
 *   **`/src`**: This is where the core application code resides.
-    *   **`/src/app`**: Implements the Next.js App Router. Each folder inside `app` can define a route.
-        *   `layout.tsx`: Defines the main HTML structure shared across pages.
-        *   `page.tsx`: Represents the UI for a specific route. The `page.tsx` in the root of `app` is the homepage.
-        *   `globals.css`: For styles that apply to the entire application.
-    *   **`/src/components`**: Houses reusable React components.
-        *   **`/src/components/ui`**: Typically contains lower-level UI primitives or components from a library like shadcn/ui, which are then used to build more complex components.
-    *   **`/src/lib`**: Contains shared utility functions, helper scripts, or library-specific configurations. `utils.ts` often includes functions like `cn` for conditionally joining class names, especially useful with Tailwind CSS.
-*   **`/docs`**: Contains all detailed project documentation in Markdown format.
+    *   **`/src/app`**: Implements the Next.js App Router.
+        *   `layout.tsx`: Root layout.
+        *   `page.tsx`: Entry point for the landing page, now primarily imports section components.
+    *   **`/src/components`**: Contains all React components.
+        *   **`/src/components/common`**: Small, reusable components used across multiple parts of the site (e.g., `PlaceholderIcon.tsx`).
+        *   **`/src/components/landing`**: Components that make up the different sections of the main landing page (e.g., `HeroSection.tsx`, `ServicesSection.tsx`).
+        *   **`/src/components/Navbar`**: Components specifically for building the navigation bar (e.g., `DesktopNav.tsx`, `MobileNav.tsx`).
+        *   **`/src/components/ui`**: Base UI primitives (e.g., from shadcn/ui).
+    *   **`/src/hooks`**: Custom React hooks (e.g., `useScrollEffect.ts`).
+    *   **`/src/lib`**: Shared utility functions and libraries.
+        *   `utils.ts`: General utilities like `cn`.
+        *   `/src/lib/utils/`: Directory for more specific utility modules like `scroll.ts`.
+*   **`/docs`**: Project documentation.
 
 ## Configuration Files (Root)
 

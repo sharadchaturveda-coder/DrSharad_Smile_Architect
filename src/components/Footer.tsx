@@ -1,16 +1,7 @@
-'use client'; // Make it a client component for onClick handler
+'use client';
 
 import Link from 'next/link';
-
-// Helper for smooth scrolling
-const handleFooterScrollLinkClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
-  e.preventDefault();
-  const targetId = href.substring(1); // Remove #
-  const targetElement = document.getElementById(targetId);
-  if (targetElement) {
-    targetElement.scrollIntoView({ behavior: 'smooth' });
-  }
-};
+import { handleSmoothScroll } from '@/lib/utils/scroll';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,9 +15,9 @@ export default function Footer() {
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link
-              href="#contact" // Changed to anchor link
-              onClick={(e) => handleFooterScrollLinkClick(e, '#contact')}
-              className="text-sm text-slate-500 hover:text-sky-600 transition-colors" // Updated colors
+              href="#contact"
+              onClick={(e) => handleSmoothScroll(e, '#contact')}
+              className="text-sm text-slate-500 hover:text-sky-600 transition-colors"
             >
               Contact
             </Link>

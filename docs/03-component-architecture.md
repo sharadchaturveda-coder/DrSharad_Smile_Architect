@@ -4,22 +4,32 @@ This document describes the component architecture of the **DrSharad Smile Archi
 
 ## Overview
 
-The project employs a modular component structure, primarily located within the `src/components` directory. This promotes reusability, maintainability, and a clear separation of concerns. Components are built using React and TypeScript, and styled with Tailwind CSS.
+The project employs a highly modular component structure. This promotes reusability, maintainability, and a clear separation of concerns, adhering to a small-file discipline.
 
-## Core Component Directories
+## Core Component Directories & Files
 
-*   **`src/components`**: This is the main directory for custom, application-specific React components.
-    *   **`Navbar.tsx`**: Defines the `Navbar` component, responsible for site navigation.
-    *   **`Footer.tsx`**: Defines the `Footer` component, typically containing copyright information, links, etc.
-    *   These components are likely used in the main application layout (`src/app/layout.tsx`) to provide consistent UI elements across pages.
+*   **`src/app/page.tsx`**: Serves as the entry point for the landing page. It primarily imports and orchestrates various section-specific components from `src/components/landing/`.
 
-*   **`src/components/ui`**: This directory houses generic, often lower-level UI building blocks. These components are designed to be highly reusable and customizable. Based on the project dependencies (`@radix-ui/react-slot`, `class-variance-authority`, `tailwind-merge`) and file names, these are likely components from or inspired by **shadcn/ui**.
-    *   **`button.tsx`**: Provides a `Button` component.
-    *   **`card.tsx`**: Contains various `Card` related components (`Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, `CardFooter`) for displaying content in a structured card format.
-    *   **`input.tsx`**: Provides an `Input` field component.
-    *   **`textarea.tsx`**: Provides a `Textarea` component.
+*   **`src/components/common/`**:
+    *   **`PlaceholderIcon.tsx`**: A generic SVG icon component used across various sections.
 
-    These UI components are typically styled using Tailwind CSS and leverage utility functions for class name management.
+*   **`src/components/landing/`**: Contains components for each distinct section of the landing page.
+    *   `HeroSection.tsx`, `TrustLogosSection.tsx`, `AboutSection.tsx`, `ServicesSection.tsx`, `TestimonialsSection.tsx`, `PortfolioSection.tsx`, `CredentialsSection.tsx`, `ContactSection.tsx`, `FinalCTASection.tsx`: Each file represents a self-contained section of the landing page.
+    *   `ContactForm.tsx`, `ContactDetails.tsx`: Sub-components used within `ContactSection.tsx`.
+
+*   **`src/components/Navbar/`**: Houses all components related to the navigation bar.
+    *   **`Navbar.tsx` (in `src/components/`)**: The main Navbar component. It imports and uses `DesktopNav.tsx` and `MobileNav.tsx`. It also utilizes the `useScrollEffect` hook for dynamic styling.
+    *   **`DesktopNav.tsx`**: Handles the navigation links for desktop views.
+    *   **`MobileNav.tsx`**: Manages the mobile menu (hamburger icon) and its links.
+    *   **`constants.ts`**: Defines the navigation items array (`navItems`) used by both desktop and mobile navigation.
+
+*   **`src/components/Footer.tsx`**: Defines the `Footer` component. Uses `handleSmoothScroll` for its "Contact" link.
+
+*   **`src/components/ui/`**: Contains generic UI primitives (e.g., `button.tsx`, `card.tsx`) likely from shadcn/ui. These are used by various higher-level components.
+
+## Hooks
+
+*   **`src/hooks/useScrollEffect.ts`**: A custom hook that detects if the page has been scrolled past a certain threshold. Used by `Navbar.tsx` to apply a shadow.
 
 ## Key Libraries and Utilities
 
@@ -33,22 +43,19 @@ The project employs a modular component structure, primarily located within the 
         *   `clsx`: A tiny utility for constructing `className` strings conditionally.
         *   `tailwind-merge`: Merges Tailwind CSS classes in JavaScript without style conflicts.
 
-*   **`src/lib/utils.ts`**:
-    *   Contains the `cn` function:
-        ```typescript
-        import { clsx, type ClassValue } from "clsx"
-        import { twMerge } from "tailwind-merge"
-
-        export function cn(...inputs: ClassValue[]) {
-          return twMerge(clsx(inputs))
-        }
-        ```
-        This helper function is crucial for managing CSS classes in components, especially when dealing with conditional classes or variants provided by CVA and Tailwind CSS. It ensures that class names are applied correctly and efficiently.
+*   **`src/lib/utils.ts`**: Contains the `cn` utility for class name management.
+*   **`src/lib/utils/scroll.ts`**:
+    *   **`handleSmoothScroll`**: A utility function for implementing smooth scrolling to anchor links. Used by `Navbar.tsx`, `Footer.tsx`, and landing page components.
 
 ## Component Usage Pattern
 
-1.  **Base UI Components (`src/components/ui`)**: These provide the fundamental building blocks (buttons, cards, inputs). They are designed to be generic and styled with Tailwind CSS, often incorporating variants through CVA.
-2.  **Application-Specific Components (`src/components`)**: These are higher-level components (like `Navbar`, `Footer`) that might compose multiple UI components from `src/components/ui` or implement specific business logic.
-3.  **Pages (`src/app/**/*.tsx`)**: Pages consume both application-specific components and UI components to build the final user interface for different routes.
+1.  **UI Primitives (`src/components/ui/`)**: Base building blocks (Button, Card).
+2.  **Common Components (`src/components/common/`)**: Small, widely used components like `PlaceholderIcon`.
+3.  **Hooks (`src/hooks/`)**: Reusable stateful logic like `useScrollEffect`.
+4.  **Specific Feature Components (`src/components/Navbar/`, `src/components/landing/`)**:
+    *   Navbar components are assembled in `src/components/Navbar.tsx`.
+    *   Landing page sections are individual components in `src/components/landing/`.
+5.  **Page Assembly (`src/app/page.tsx`)**: The main page imports and arranges the landing page section components.
+6.  **Layout (`src/app/layout.tsx`)**: Integrates global components like `Navbar` and `Footer`.
 
-This layered approach allows for a clean separation between generic UI elements and more complex, feature-specific components, making the codebase easier to understand, scale, and maintain.
+This architecture emphasizes small, focused files and clear directory structures for improved scalability and developer experience.
