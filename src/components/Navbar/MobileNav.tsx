@@ -26,7 +26,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
         <Button
           asChild
           size="sm"
-          className="mr-2 bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-600 hover:to-emerald-600 text-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-sky-400"
+          className="mr-2 bg-gradient-to-r from-sky-500 to-emerald-500 text-white shadow-md transition-all duration-300 ease-in-out transform focus:ring-2 focus:ring-offset-2 focus:ring-sky-400"
         >
           <Link href="#contact" onClick={(e) => handleNavLinkClick(e, '#contact')}>Book Now</Link>
         </Button>
@@ -43,7 +43,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
       </div>
 
       {isMobileMenuOpen && (
-        <div id="mobile-menu" className="md:hidden border-t border-gray-200">
+        <div id="mobile-menu" className="absolute top-full left-0 right-0 z-50 md:hidden bg-white shadow-lg border-t border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navItems.map((item) => (
               <Link
@@ -52,7 +52,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
                 onClick={(e) => handleNavLinkClick(e, item.href)}
                 className={cn(
                   'block px-3 py-2 rounded-md text-base font-medium transition-colors',
-                  'text-slate-600 hover:text-sky-600 hover:bg-sky-50'
+                  'text-slate-600' // Removed hover states for mobile
                 )}
               >
                 {item.label}
