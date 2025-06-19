@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', weight: ['400', '500', '700'] });
 
 export const metadata: Metadata = {
   title: 'Dr. Sharad Chaturvedi - Conservative Dentist',
@@ -19,7 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn('min-h-screen bg-background font-sans antialiased flex flex-col', inter.className)}>
+      <body
+        className={cn(
+          'min-h-screen bg-background text-slate-gray-dark font-sans antialiased flex flex-col',
+          inter.variable,
+          dmSans.variable
+        )}
+      >
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
