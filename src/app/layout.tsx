@@ -1,33 +1,49 @@
+// 1. Add 'use client' and useState
+'use client';
+
+import { useState } from 'react';
 import type { Metadata } from 'next';
-import { Inter, DM_Sans } from 'next/font/google';
+// Removed Inter, DM_Sans imports
 import './globals.css';
 import { cn } from '@/lib/utils';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import MobileNav from '@/components/Navbar/MobileNav'; // 2. Import MobileNav here
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', weight: ['400', '500', '700'] });
+// Removed inter and dmSans font initializations
 
-export const metadata: Metadata = {
-  title: 'Dr. Sharad Chaturvedi - Conservative Dentist',
-  description: 'Preserving smiles through precision and care. Dental clinic and academic portfolio of Dr. Sharad Chaturvedi.',
-};
+// Static metadata export might need to be removed or handled differently with 'use client'
+// For now, I will comment it out as per the instructions' hint.
+// export const metadata: Metadata = {
+//   title: 'Dr. Sharad Chaturvedi - Conservative Dentist',
+//   description: 'Preserving smiles through precision and care. Dental clinic and academic portfolio of Dr. Sharad Chaturvedi.',
+// };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 3. Create the state here at the highest level
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background text-slate-gray-dark font-sans antialiased flex flex-col',
-          inter.variable,
-          dmSans.variable
+          'min-h-screen bg-background text-off-white font-sans antialiased flex flex-col'
+          // Removed inter.variable, dmSans.variable
         )}
       >
-        <Navbar />
+        {/* 4. Render both Navbar and MobileNav as siblings */}
+        <Navbar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+        {/* 
+          The MobileNav component itself will handle its visibility based on isMobileMenuOpen.
+          It will also need the handleNavLinkClick prop if that logic is to be kept inside it for closing on link click.
+          However, the new instructions for MobileNav.tsx show it handling link clicks internally.
+        */}
+        <MobileNav isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>

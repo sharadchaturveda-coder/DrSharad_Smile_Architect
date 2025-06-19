@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import PlaceholderIcon from '@/components/common/PlaceholderIcon';
+import GeometricPlaceholderIcon from '@/components/common/GeometricPlaceholderIcon'; // Updated import
 
 const services = [
   { title: 'Composite Fillings', benefit: 'Seamless, tooth-colored restorations.' },
@@ -12,20 +12,25 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-16 md:py-24 bg-white">
+    <section id="services" className="py-16 md:py-24 bg-background"> {/* Updated background */}
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-700 tracking-tight text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-off-white tracking-tight text-center mb-12"> {/* Updated text color */}
           My Services
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => (
-            <Card key={service.title} className="text-center bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {services.map((service, index) => ( // Added index for alternating shapes
+            <Card key={service.title} className="text-center bg-brand-gray-800 rounded-2xl shadow-lg md:hover:shadow-xl active:shadow-2xl active:scale-[1.02] transition-all duration-300 ease-in-out"> {/* Prefixed hover:shadow-xl with md: */}
               <CardHeader>
-                <div className="mx-auto mb-4"><PlaceholderIcon className="text-sky-500" /></div>
-                <CardTitle className="text-xl text-sky-600">{service.title}</CardTitle>
+                <div className="mx-auto mb-4">
+                  <GeometricPlaceholderIcon
+                    shape={index % 2 === 0 ? 'hexagon' : 'diamond'} // Alternate shapes
+                    className="text-accent" // Icon color
+                  />
+                </div>
+                <CardTitle className="text-xl text-accent">{service.title}</CardTitle> {/* Updated title color */}
               </CardHeader>
               <CardContent>
-                <p className="text-slate-600 leading-relaxed">{service.benefit}</p>
+                <p className="text-slate-400 leading-relaxed">{service.benefit}</p> {/* Updated paragraph color */}
               </CardContent>
             </Card>
           ))}

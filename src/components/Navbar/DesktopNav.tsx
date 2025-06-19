@@ -23,7 +23,7 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ handleNavLinkClick }) => {
           onClick={(e) => handleNavLinkClick(e, item.href)}
           className={cn(
             'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-            'text-slate-600 hover:text-sky-600 hover:bg-sky-50'
+            'text-off-white hover:text-accent hover:bg-slate-700' // Updated link colors
           )}
         >
           {item.label}
@@ -32,7 +32,7 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ handleNavLinkClick }) => {
       <Button
         asChild
         size="sm"
-        className="ml-2 bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-600 hover:to-emerald-600 text-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-sky-400"
+        className="ml-2 bg-accent text-off-white hover:bg-sky-500 hover:text-off-white font-semibold shadow-md md:hover:shadow-lg transition-all duration-300 ease-in-out transform md:hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-accent focus:ring-offset-background active:scale-105" // Prefixed hover effects, kept active:scale
       >
         <Link href="#contact" onClick={(e) => handleNavLinkClick(e, '#contact')}>Book Now</Link>
       </Button>

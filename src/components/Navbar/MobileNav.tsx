@@ -1,67 +1,91 @@
 'use client';
 
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { X } from 'lucide-react'; // Example close icon
 import { navItems } from './constants';
+import { handleSmoothScroll } from '@/lib/utils/scroll';
+import { cn } from '@/lib/utils';
+import React from 'react'; // Ensure React is imported for JSX and types
+import { Button } from '@/components/ui/button'; // Import Button for the close button
 
+// 1. Define its new props
 interface MobileNavProps {
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  handleNavLinkClick: (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    href: string
-  ) => void;
+  // handleNavLinkClick is no longer passed from Navbar for general links
 }
 
 const MobileNav: React.FC<MobileNavProps> = ({
   isMobileMenuOpen,
   setIsMobileMenuOpen,
-  handleNavLinkClick,
 }) => {
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    href: string
+  ) => {
+    handleSmoothScroll(e, href);
+    setIsMobileMenuOpen(false); // Close menu on link click
+  };
+
+  // Refs for focus management (optional but good for accessibility)
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  React.useEffect(() => {
+    if (isMobileMenuOpen && closeButtonRef.current) {
+      setTimeout(() => closeButtonRef.current?.focus(), 100);
+    }
+  }, [isMobileMenuOpen]);
+
+
+  if (!isMobileMenuOpen) return null; // Render nothing if closed
+
+  // 2. The main container is now a standalone overlay.
   return (
-    <>
-      <div className="md:hidden flex items-center">
-        <Button
-          asChild
-          size="sm"
-          className="mr-2 bg-gradient-to-r from-sky-500 to-emerald-500 text-white shadow-md transition-all duration-300 ease-in-out transform focus:ring-2 focus:ring-offset-2 focus:ring-sky-400"
-        >
-          <Link href="#contact" onClick={(e) => handleNavLinkClick(e, '#contact')}>Book Now</Link>
-        </Button>
-        <Button
+    <div
+      id="mobile-menu-panel" // Keep ID for aria-controls
+      className={cn(
+        // '!fixed !inset-0 z-[9999]' was from previous attempts, new instructions use z-[100]
+        // The key is that it's fixed and covers the inset.
+        // The previous transform for slide-in is removed as per new design.
+        // It will appear/disappear based on isMobileMenuOpen.
+        // For a slide-in effect with this new structure, we'd re-add transform and conditional classes.
+        // Sticking to provided JSX for now:
+        "fixed inset-0 z-[100] bg-black/80 backdrop-blur-2xl flex flex-col p-6 md:hidden"
+        // Adding md:hidden to ensure it doesn't accidentally show on desktop
+      )}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mobile-menu-title"
+    >
+      <div className="flex items-center justify-between mb-8">
+        <h2 id="mobile-menu-title" className="text-xl font-bold text-white">Menu</h2>
+        <Button // Using the Button component for consistency and accessibility
           variant="ghost"
           size="icon"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-expanded={isMobileMenuOpen}
-          aria-controls="mobile-menu"
+          ref={closeButtonRef}
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="text-white focus:bg-white/20 active:bg-white/30"
+          aria-label="Close menu"
         >
-          <Menu className="h-6 w-6" aria-hidden="true" />
-          <span className="sr-only">Open menu</span>
+          <X size={28} />
         </Button>
       </div>
 
-      {isMobileMenuOpen && (
-        <div id="mobile-menu" className="absolute top-full left-0 right-0 z-50 md:hidden bg-white shadow-lg border-t border-gray-200">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleNavLinkClick(e, item.href)}
-                className={cn(
-                  'block px-3 py-2 rounded-md text-base font-medium transition-colors',
-                  'text-slate-600' // Removed hover states for mobile
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </>
+      <nav className="flex flex-col space-y-4 flex-grow items-center justify-center"> {/* Centering links */}
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={(e) => handleLinkClick(e, item.href)}
+            className="text-white text-2xl font-semibold py-2 hover:text-slate-300 transition-colors w-full text-center" // Adjusted styling
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
+      <div className="text-center py-4">
+        <p className="text-sm text-slate-400">&copy; {new Date().getFullYear()} Dr. Sharad</p>
+      </div>
+    </div>
   );
 };
 

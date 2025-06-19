@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-base leading-relaxed; /* Base for mobile */
+    /* Desktop adjustments */
+    @apply md:text-lg md:leading-relaxed;
+  }
+
+  h1, .h1 { /* .h1 class for semantic elements that need h1 styling */
+    @apply font-heading font-bold text-3xl leading-tight;
+    @apply md:text-4xl lg:text-5xl;
+  }
+  h2, .h2 {
+    @apply font-heading font-bold text-2xl leading-snug;
+    @apply md:text-3xl lg:text-4xl;
+  }
+  h3, .h3 {
+    @apply font-heading font-semibold text-xl leading-snug; /* Slightly less bold for h3 */
+    @apply md:text-2xl lg:text-3xl;
+  }
+  h4, .h4 {
+    @apply font-heading font-semibold text-lg leading-normal;
+    @apply md:text-xl lg:text-2xl;
+  }
+  p, li, span, div { /* Apply to common text containers */
+    /* Ensure default line-height and spacing is good for mobile */
+  }
+
+  /* Ensure links inherit color by default and have a consistent underline style */
+  a {
+    @apply text-accent hover:text-sky-400 transition-colors duration-150;
+  }
+}

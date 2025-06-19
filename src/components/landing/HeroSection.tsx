@@ -9,11 +9,11 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#f6f9fc] to-[#eaeef3] text-slate-700 py-20 md:py-32 text-center overflow-hidden"
+      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-background to-slate-900 text-off-white py-20 md:py-32 text-center overflow-hidden" // Updated gradient and text color
     >
       {/* Faint dental-themed SVG/abstract blur placeholder */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" className="text-sky-100">
+      <div className="absolute inset-0 opacity-10 pointer-events-none"> {/* Increased opacity slightly for dark theme */}
+        <svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" className="text-slate-700"> {/* Darker SVG color */}
           <defs>
             <filter id="blurMeHero"> {/* Unique ID for filter */}
               <feGaussianBlur in="SourceGraphic" stdDeviation="50" />
@@ -50,7 +50,7 @@ const HeroSection = () => {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-600 hover:to-emerald-600 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-sky-400"
+            className="bg-accent text-off-white hover:bg-sky-500 hover:text-off-white font-semibold px-8 py-3 text-lg shadow-lg md:hover:shadow-xl transition-all duration-300 ease-in-out transform md:hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-accent focus:ring-offset-background active:scale-105" // Prefixed hover effects, kept active:scale
             asChild
           >
             <Link href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>
